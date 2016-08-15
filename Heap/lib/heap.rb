@@ -26,6 +26,7 @@ class BinaryMinHeap
   end
 
   def self.parent_index(child_index)
+    ((child_index - 1) / 2).floor
   end
 
   def self.heapify_down(array, parent_idx, len = array.length, &prc)
