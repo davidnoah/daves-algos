@@ -20,12 +20,13 @@ class BinaryMinHeap
   public
   def self.child_indices(len, parent_index)
     child_indices = []
-    child_indices << ((2*parent_index) - 1) if ((2*parent_index) - 1) < len
-    child_indices << ((2*parent_index) - 2) if ((2*parent_index) - 2) < len
+    child_indices << ((2*parent_index) + 1) if ((2*parent_index) + 1) < len
+    child_indices << ((2*parent_index) + 2) if ((2*parent_index) + 2) < len
     child_indices
   end
 
   def self.parent_index(child_index)
+    raise "root has no parent" if child_index == 0
     ((child_index - 1) / 2).floor
   end
 
