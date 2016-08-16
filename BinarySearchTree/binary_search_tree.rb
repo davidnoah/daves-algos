@@ -19,7 +19,25 @@ class BST
   end
 
   def nth_smallest(x)
+    stack = [self]
+    counter = 0
+    temp = nil
+
+    loop do
+      until stack[-1].left == nil
+        stack << stack[-1].left
+      end
+
+      2.times do
+        temp = stack.pop
+        counter += 1
+        return temp.data if counter == x
+      end
+
+      stack << temp.right unless temp.right == nil
+    end
   end
+
 end
 
 example_bst = BST.new(8,
@@ -33,3 +51,7 @@ example_bst = BST.new(8,
                    BST.new(14,
                        BST.new(13),
                        nil)))
+
+p example_bst.nth_smallest(5)
+
+# Visual Display of Example: https://upload.wikimedia.org/wikipedia/commons/d/da/Binary_search_tree.svg
