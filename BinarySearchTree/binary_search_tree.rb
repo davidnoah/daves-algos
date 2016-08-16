@@ -1,5 +1,6 @@
-class BST
+# Visual Display of Example: https://upload.wikimedia.org/wikipedia/commons/d/da/Binary_search_tree.svg
 
+class BST
   attr_accessor :data, :left, :right
 
   def initialize(data, left=nil, right=nil)
@@ -23,12 +24,16 @@ class BST
     counter = 0
     temp = nil
 
-    loop do
+    until stack.empty?
       until stack[-1].left == nil
         stack << stack[-1].left
       end
 
-      2.times do
+      temp = stack.pop
+      counter += 1
+      return temp.data if counter == x
+
+      unless stack.empty?
         temp = stack.pop
         counter += 1
         return temp.data if counter == x
@@ -36,6 +41,8 @@ class BST
 
       stack << temp.right unless temp.right == nil
     end
+
+    nil
   end
 
 end
@@ -52,6 +59,4 @@ example_bst = BST.new(8,
                        BST.new(13),
                        nil)))
 
-p example_bst.nth_smallest(5)
-
-# Visual Display of Example: https://upload.wikimedia.org/wikipedia/commons/d/da/Binary_search_tree.svg
+p example_bst.nth_smallest(10)
