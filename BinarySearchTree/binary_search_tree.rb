@@ -28,18 +28,25 @@ class BST
       until stack[-1].left == nil
         stack << stack[-1].left
       end
-
-      temp = stack.pop
-      counter += 1
-      return temp.data if counter == x
-
-      unless stack.empty?
+      if stack[-1].right == nil
         temp = stack.pop
         counter += 1
         return temp.data if counter == x
-      end
 
-      stack << temp.right unless temp.right == nil
+        unless stack.empty?
+          temp = stack.pop
+          counter += 1
+          return temp.data if counter == x
+        end
+
+        stack << temp.right unless temp.right == nil
+      else
+        temp = stack.pop
+        counter += 1
+        return temp.data if counter == x
+
+        stack << temp.right
+      end
     end
 
     nil
@@ -67,7 +74,7 @@ class BST
       else
         temp = stack.pop
         serialized_arr << temp.data
-        
+
         stack << temp.right
       end
     end
@@ -87,4 +94,4 @@ example_bst = BST.new(8,
                    BST.new(14,
                        BST.new(13),
                        nil)))
-p example_bst.serialize
+p example_bst.nth_smallest(2)
