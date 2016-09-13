@@ -45,11 +45,40 @@ class BST
     nil
   end
 
+  def serialize
+    serialized_arr = []
+    stack = [self]
+
+    until stack.empty?
+      until stack[-1].left == nil
+        stack << stack[-1].left
+      end
+
+      if stack[-1].right == nil
+        temp = stack.pop
+        serialized_arr << temp.data
+
+        unless stack.empty?
+          temp = stack.pop
+          serialized_arr << temp.data
+        end
+
+        stack << temp.right unless temp.right == nil
+      else
+        temp = stack.pop
+        serialized_arr << temp.data
+        
+        stack << temp.right
+      end
+    end
+
+    serialized_arr
+  end
 end
 
 example_bst = BST.new(8,
                 BST.new(3,
-                   BST.new(1),
+                   BST.new(1, nil, BST.new(2)),
                    BST.new(6,
                        BST.new(4),
                        BST.new(7))),
@@ -58,5 +87,4 @@ example_bst = BST.new(8,
                    BST.new(14,
                        BST.new(13),
                        nil)))
-
-p example_bst.nth_smallest(10)
+p example_bst.serialize

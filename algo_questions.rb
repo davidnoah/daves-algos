@@ -7,14 +7,18 @@ def convert_to_linked_list(tree)
   stack = [tree]
   temp = nil
 
-  loop do
+  until stack.empty?
     until stack[-1].left == nil
       stack << stack[-1].left
     end
-    stack.pop
     temp = stack.pop
+    unless stack.empty?
+      temp = stack.pop
+    end
     stack << temp.right unless temp.right == nil
   end
+
+  nil
 end
 
 example_bst = BST.new(8,
