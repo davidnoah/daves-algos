@@ -52,6 +52,7 @@ class BST
     nil
   end
 
+  # In-order traversal
   def serialize
     serialized_arr = []
     stack = [self]
@@ -81,11 +82,12 @@ class BST
 
     serialized_arr
   end
+
 end
 
 example_bst = BST.new(8,
                 BST.new(3,
-                   BST.new(1, nil, BST.new(2)),
+                   BST.new(1),
                    BST.new(6,
                        BST.new(4),
                        BST.new(7))),
@@ -94,4 +96,33 @@ example_bst = BST.new(8,
                    BST.new(14,
                        BST.new(13),
                        nil)))
-p example_bst.nth_smallest(2)
+
+def serialize_binary_tree(root, arr)
+  return arr << nil if root == nil
+
+  arr << root.data
+  serialize_binary_tree(root.left, arr)
+  serialize_binary_tree(root.right, arr)
+end
+$i = 0
+def deserialize_binary_tree(arr)
+    return nil if arr == nil || arr.length == 0
+    deserializeHelper(arr)
+end
+
+def deserializeHelper(arr)
+  if $i >= arr.length || arr[$i] == nil
+    return nil
+  end
+
+  root = BST.new(arr[$i])
+  $i += 1
+  root.left = deserializeHelper(arr)
+  $i += 1
+  root.right = deserializeHelper(arr)
+  root
+end
+
+arr = []
+yo = serialize_binary_tree(example_bst, arr)
+p deserialize_binary_tree(yo).to_s
