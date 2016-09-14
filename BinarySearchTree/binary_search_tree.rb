@@ -105,21 +105,16 @@ def serialize_binary_tree(root, arr)
   serialize_binary_tree(root.right, arr)
 end
 $i = 0
-def deserialize_binary_tree(arr)
-    return nil if arr == nil || arr.length == 0
-    deserializeHelper(arr)
-end
 
-def deserializeHelper(arr)
-  if $i >= arr.length || arr[$i] == nil
-    return nil
-  end
+def deserialize_binary_tree(arr)
+  return nil if arr == nil || arr.length == 0
+  return nil if $i >= arr.length || arr[$i] == nil
 
   root = BST.new(arr[$i])
   $i += 1
-  root.left = deserializeHelper(arr)
+  root.left = deserialize_binary_tree(arr)
   $i += 1
-  root.right = deserializeHelper(arr)
+  root.right = deserialize_binary_tree(arr)
   root
 end
 
