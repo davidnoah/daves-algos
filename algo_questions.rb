@@ -72,5 +72,3 @@ def in_words(num)
     end
   end
 end
-
-p in_words(102)
