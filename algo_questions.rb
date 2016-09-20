@@ -19,7 +19,7 @@ def dynamic_coins(coins, sum)
 end
 
 
-missing = {facebook: 10, cash: -90}
+# missing = {facebook: 10, cash: -90}
 
 def stock_ticker(day_one, day_two, trans)
   new_pos = day_one
@@ -40,7 +40,37 @@ def stock_ticker(day_one, day_two, trans)
   needed_trans
 end
 
-day_one_poss = {google: 10, apple: 10, cash: 40}
-day_one_trans = [{apple: -10, cash: 60}]
-day_two_poss = {google: 10, facebook: 10, cash: 10}
-p stock_ticker(day_one_poss, day_two_poss, day_one_trans)
+# day_one_poss = {google: 10, apple: 10, cash: 40}
+# day_one_trans = [{apple: -10, cash: 60}]
+# day_two_poss = {google: 10, facebook: 10, cash: 10}
+# p stock_ticker(day_one_poss, day_two_poss, day_one_trans)
+
+DIGITS = {1 => "one", 2 => "two", 3 => "three", 4 => "four", 5 => "five", 6 => "six", 7 => "seven", 8 => "eight", 9 => "nine"}
+TEENS = {10 => "ten", 11 => "eleven", 12 => "twelve", 13 => "thirteen", 14 => "fourteen", 15 => "fifteen", 16 => "sixteen", 17 => "seventeen", 18 => "eighteen", 19 => "nineteen"}
+TENS = {20 => "twenty", 30 => "thirty", 40 => "fourty", 50 => "fifty", 60 => "sixty", 70 => "seventy", 80 => "eighty", 90 => "ninety"}
+SCALES = {100 => "hundred", 1000 => "thousand", 1_000_000 => "million", 1_000_000_000 => "billion", 1_000_000_000_000 => "trillion"}
+
+def in_words(num)
+  if num < 10
+    DIGITS[num]
+  elsif num < 20
+    TEENS[num]
+  elsif num < 100
+    tens_word = TENS[(num / 10) * 10]
+    if num % 10 == 0
+      tens_word
+    else
+      tens_word + " " + in_words(num - ((num / 10) * 10))
+    end
+  else
+    magnitude = SCALES.keys.select {|scale| scale <= num}[-1]
+    words = in_words(num / magnitude) + " " + SCALES[magnitude]
+    if num % magnitude != 0
+      words + " " + in_words(num % magnitude)
+    else
+      words
+    end
+  end
+end
+
+p in_words(102)
