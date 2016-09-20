@@ -13,4 +13,15 @@ function validTime(start, end) {
   return true;
 }
 
-console.log(validTime(41, 4));
+
+var array = [3, 4, 1, 3, 1, 7, 2, 2, 4];
+
+function nonRepeating(a) {
+  var element = 0;
+  for (var i = 0; i < a.length; i++) {
+    element ^= a[i];
+  }
+  return element;
+}
+
+console.log(nonRepeating(array));
