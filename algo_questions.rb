@@ -72,3 +72,19 @@ def in_words(num)
     end
   end
 end
+
+
+class BigNumber
+  attr_reader :value, :base
+
+  def initialize(value, base)
+    @value = value
+    @base = base
+  end
+
+  def add(big_number)
+    @value.to_i(@base) + big_number.value.to_i(big_number.base)
+  end
+end
+
+p BigNumber.new("f", 16).add(BigNumber.new("f", 16))

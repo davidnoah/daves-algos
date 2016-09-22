@@ -87,3 +87,36 @@ class LinkedList
     inject([]) { |acc, link| acc << "[#{link.key}, #{link.val}]" }.join(", ")
   end
 end
+
+def create_single_list(n)
+  list = Link.new(0, 0)
+  temp = list
+  (n - 1).times do |i|
+    temp.next = Link.new(i + 1, i + 1)
+    temp = temp.next
+  end
+
+  list
+end
+
+
+
+def nth_last_element(n, link)
+  p1 = link
+  p2 = link
+  counter = 0
+  until counter == n
+    p2 = p2.next
+    counter += 1
+  end
+
+  until p2.next == nil
+    p1 = p1.next
+    p2 = p2.next
+  end
+
+  p1
+end
+
+list = create_single_list(8)
+p nth_last_element(7, list)
