@@ -118,17 +118,7 @@ def deserialize_binary_tree(arr)
   root
 end
 
-def find_target_BFS(node, target)
-  queue = [node]
-  depth = 0
-  loop do
-    current_node = queue.pop
 
-    return nil if current_node.nil?
-    return depth if current_node == target
-
-
-end
 
 # arr = []
 # yo = serialize_binary_tree(example_bst, arr)
