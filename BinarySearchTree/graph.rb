@@ -27,9 +27,7 @@ def find_target_BFS(node, target)
       depth += 1
       last_child = queue[0]
     end
-
   end
-
 end
 
 def frog_lily(x, arr)
@@ -42,3 +40,21 @@ def frog_lily(x, arr)
   end
   return nil
 end
+
+def min_depth(node)
+  queue = [node]
+  depth = 0
+  last_child = node
+
+  loop do
+    temp = queue.shift
+    return depth if temp.children.empty?
+    queue = queue + temp.children
+    if temp == last_child
+      depth += 1
+      last_child = queue[-1]
+    end
+  end
+end
+
+p min_depth(example_graph)

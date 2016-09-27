@@ -182,3 +182,14 @@ end
 
 p num_decodings("1234")
 p dp_num_decodings("1234")
+
+def fibs_rec(n)
+  if n <= 2
+    [0, 1].take(n)
+  else
+    fibs = fibs_rec(n - 1)
+    fibs << fibs[-2] + fibs[-1]
+  end
+end
+
+p fibs_rec(8)
