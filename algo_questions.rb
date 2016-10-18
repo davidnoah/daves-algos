@@ -165,7 +165,6 @@ def dp_num_decodings(s)
   decodings = {}
   decodings[0] = 1
   decodings[1] = 1
-  p decodings
   i = 2
   while i <= n
     if s[i-1] > "0"
@@ -174,14 +173,10 @@ def dp_num_decodings(s)
     if s[i-2] < '2' || (s[i-2] == '2' && s[i-1] < '7')
       decodings[i] += decodings[i-2]
     end
-    p decodings
     i += 1
   end
   decodings[n]
 end
-
-p num_decodings("1234")
-p dp_num_decodings("1234")
 
 def fibs_rec(n)
   if n <= 2
@@ -192,4 +187,24 @@ def fibs_rec(n)
   end
 end
 
-p fibs_rec(8)
+def subsets(arr)
+  subs = [[]]
+  arr.each_index do |i|
+    subs << arr[i]
+    j = i + 1
+    while j < arr.length
+      sub = arr[i..j]
+      subs << sub
+      j += 1
+    end
+    k = i + 2
+    while k < arr.length
+      sub = [arr[i]] + arr[k..j]
+      subs << sub
+      k += 1
+    end
+  end
+  subs
+end
+
+p subsets([1,2,3])

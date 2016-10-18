@@ -57,4 +57,34 @@ def min_depth(node)
   end
 end
 
-p min_depth(example_graph)
+
+def find_max_stored_BFS(node)
+  queue = [node]
+  current_max = 1
+
+  until queue.empty?
+    current_node = queue.pop
+    queue = current_node.children + queue unless current_node.children == nil
+    if current_max < queue.length
+      current_max = queue.length
+    end
+  end
+  current_max
+end
+
+def find_max_stored_DFS(node)
+  stack = [node]
+  current_max = 1
+
+  until stack.empty?
+    current_node = stack.pop
+    stack = stack + current_node.children unless current_node.children == nil
+    p stack
+    if current_max < stack.length
+      current_max = stack.length
+    end
+  end
+  current_max
+end
+
+p find_max_stored_DFS(example_graph)

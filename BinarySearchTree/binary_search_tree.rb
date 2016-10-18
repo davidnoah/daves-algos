@@ -53,14 +53,16 @@ class BST
   end
 
   # In-order traversal
-  def serialize
+  def stack_max_size
     serialized_arr = []
     stack = [self]
+    stack_size = 1
 
     until stack.empty?
       until stack[-1].left == nil
         stack << stack[-1].left
       end
+      stack_size = stack.length if stack_size < stack.length
 
       if stack[-1].right == nil
         temp = stack.pop
@@ -72,15 +74,17 @@ class BST
         end
 
         stack << temp.right unless temp.right == nil
+        stack_size = stack.length if stack_size < stack.length
       else
         temp = stack.pop
         serialized_arr << temp.data
 
         stack << temp.right
+        stack_size = stack.length if stack_size < stack.length
       end
     end
 
-    serialized_arr
+    stack_size
   end
 
 end
@@ -96,6 +100,18 @@ example_bst = BST.new(8,
                    BST.new(14,
                        BST.new(13),
                        nil)))
+def nth_smallest_recur(root, x)
+  return nil if root == nil
+
+  nth_smallest_recur(root.left, x)
+  x -= 1
+  return root.data if x == 0
+  nth_smallest_recur(root.right, x)
+end
+
+p nth_smallest_recur(example_bst, 4)
+
+
 
 def serialize_binary_tree(root, arr)
   return arr << nil if root == nil
@@ -118,8 +134,14 @@ def deserialize_binary_tree(arr)
   root
 end
 
+def create_minimal_height_tree(arr)
+  return nil if arr.length == 0
+  return BST.new(arr[0]) if arr.length == 1
 
+  mid_index = (arr.length / 2)
 
-# arr = []
-# yo = serialize_binary_tree(example_bst, arr)
-# deserialize_binary_tree(yo).to_s
+  root = BST.new(arr[mid_index])
+  root.left = create_minimal_height_tree(arr[0...mid_index])
+  root.right = create_minimal_height_tree(arr[(mid_index + 1)..(arr.length - 1)])
+  return root
+end
