@@ -1,4 +1,5 @@
 # Visual Display of Example: https://upload.wikimedia.org/wikipedia/commons/d/da/Binary_search_tree.svg
+require_relative '../LinkedList/linked_list'
 
 class BST
   attr_accessor :data, :left, :right
@@ -109,9 +110,6 @@ def nth_smallest_recur(root, x)
   nth_smallest_recur(root.right, x)
 end
 
-p nth_smallest_recur(example_bst, 4)
-
-
 
 def serialize_binary_tree(root, arr)
   return arr << nil if root == nil
@@ -145,3 +143,26 @@ def create_minimal_height_tree(arr)
   root.right = create_minimal_height_tree(arr[(mid_index + 1)..(arr.length - 1)])
   return root
 end
+
+def rows_to_linked_lists(node)
+  queue = [node]
+  link_lists = [LinkedList.new]
+  end_row = node
+
+  until queue.empty?
+    current_node = queue.pop
+    queue.unshift(current_node.left) unless current_node == nil
+    queue.unshift(current_node.right) unless current_node == nil
+
+    link_lists[-1].insert("Node: ", current_node.data) unless current_node == nil
+    p link_lists[-1].to_s
+    if current_node == end_row
+      link_lists << LinkedList.new
+      end_row = queue[0]
+    end
+  end
+
+  link_lists
+end
+
+p rows_to_linked_lists(example_bst).map {|list| list.to_s}

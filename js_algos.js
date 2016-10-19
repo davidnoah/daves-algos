@@ -143,3 +143,16 @@ function reconAssets(day0Pos, day1Trans, day1Pos) {
   }
   return result;
 }
+
+
+function spiralDiagSum(num) {
+  var sum = 1;
+  currentNum = 1;
+  for (var i = 2; i < num; i += 2) {
+    for (var j = 0; j < 4; j++) {
+      currentNum = currentNum + i;
+      sum = sum + currentNum;
+    }
+  }
+  return (sum);
+}

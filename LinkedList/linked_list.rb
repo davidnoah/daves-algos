@@ -117,6 +117,3 @@ def nth_last_element(n, link)
 
   p1
 end
-
-list = create_single_list(8)
-p nth_last_element(7, list)
