@@ -156,3 +156,62 @@ function spiralDiagSum(num) {
   }
   return (sum);
 }
+
+
+function leastDistanceWords(words, word1, word2) {
+  var lastSeenWord1 = -1;
+  var lastSeenWord2 = -1;
+  var min = words.length;
+  var distance;
+
+  for (var i = 0; i < words.length; i++) {
+    var currentWord = words[i];
+
+    if (currentWord === word1) {
+      lastSeenWord1 = i;
+
+      distance = lastSeenWord1 - lastSeenWord2;
+      if (min > distance && lastSeenWord2 !== -1) {
+        min = distance;
+      }
+    } else if (currentWord === word2) {
+      lastSeenWord2 = i;
+
+      distance = lastSeenWord2 - lastSeenWord1;
+      if (min > distance && lastSeenWord1 !== -1) {
+        min = distance;
+      }
+    }
+  }
+
+  return min;
+}
+
+var matrix = [[-1,2,-3,4,5],
+              [4,3,-5,2,-8],
+              [-1,-5,3,4,2],
+              [-4,2,4,-7,7],
+              [2,-3,8,-9,3]];
+function sumMatrix(matrix) {
+  var sum = 0;
+  for (var i = 0; i < matrix.length; i++) {
+    sum += matrix[i].reduce((prev, curr) => prev + curr);
+  }
+  return sum;
+}
+
+// unfinished
+function largestSumSubmatrix(matrix, currentLargestSum, currentLargestMatrix) {
+  var size = matrix[0].length;
+  if (size === 0) {
+    return matrix;
+  }
+
+  var sum = sumMatrix(matrix);
+  if (currentLargestSum === null || currentLargest < sum) {
+    currentLargestSum = sum;
+    currentLargestMatrix = matrix;
+  }
+
+
+}
