@@ -117,3 +117,34 @@ def nth_last_element(n, link)
 
   p1
 end
+
+list = Link.new("T", 0)
+list.next = Link.new("A", 1)
+list.next.prev = list
+list.next.next = Link.new("C", 2)
+list.next.next.prev = list.next
+list.next.next.next = Link.new("O", 3)
+list.next.next.next.prev = list.next.next
+
+def is_palidrome?(link)
+  p1 = link
+  p2 = link
+  counter = 1
+
+  until p2.next == nil
+    p2 = p2.next
+    counter += 1
+  end
+
+  iterator = 0
+  until p1 == p2 || iterator > (counter / 2)
+    return false if p1.key != p2.key
+    p2 = p2.prev
+    p1 = p1.next
+    iterator += 1
+  end
+
+  true
+end
+
+p is_palidrome?(list)

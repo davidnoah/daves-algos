@@ -207,4 +207,55 @@ def subsets(arr)
   subs
 end
 
-p subsets([1,2,3])
+def word_morph(start_word,end_word,dict)
+  possible_words = []
+  File.open(dict).each do |word|
+    possible_words << word.chomp if word.chomp.length == start_word.length
+  end
+  p build_word_chain([start_word],end_word,possible_words)
+end
+
+
+def build_word_chain(word_chain,end_word,possible_words)
+
+  return word_chain+[end_word] if possible_transition?(word_chain.last,end_word)
+
+  possible_words.each do |possible_word|
+    if possible_transition?(word_chain.last,possible_word)
+      new_word_chain = word_chain.dup << possible_word
+      new_possible_words = possible_words.dup - [possible_word]
+      return build_word_chain(new_word_chain,end_word,new_possible_words)
+    end
+  end
+
+  return "Transition not Possible"
+end
+
+
+def possible_transition?(old_word,new_word)
+  letter_differences = 0
+  0.upto(old_word.length-1) do |idx|
+    letter_differences += 1 if old_word[idx] != new_word[idx]
+  end
+  return letter_differences == 1
+end
+
+
+def pig_latin(str)
+  str.split(" ").map {|word| latinify(word)}.join(" ")
+end
+
+def latinify(str)
+  vowels = ["a", "e", "i", "o" ,"u"]
+  if vowels.include?(str[0])
+    return str[0...str.length] + "way"
+  else
+    return str[2..-1] + str[0..1] + "ay" if str[0..1] == "qu"
+    until (vowels.include?(str[0]))
+      str = str[1..-1] + str[0]
+    end
+  end
+  str + "ay"
+end
+
+p pig_latin("i speak pig latin quack")

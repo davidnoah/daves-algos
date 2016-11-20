@@ -215,3 +215,49 @@ function largestSumSubmatrix(matrix, currentLargestSum, currentLargestMatrix) {
 
 
 }
+
+function uniqueString(string) {
+  if (string.length > 26) {
+    return false;
+  }
+  var characterHash = {};
+  for (var i = 0; i < string.length; i++) {
+  	if (characterHash[string[i]]) {
+  		return false;
+  	} else {
+  		characterHash[string[i]] = true;
+  	}
+  }
+  return true;
+}
+
+class BST {
+  constructor(data, left, right) {
+    this.data = data;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+var exampleBST = new BST(8,
+                new BST(3,
+                   new BST(1),
+                   new BST(6,
+                       new BST(4),
+                       new BST(7))),
+               new BST(10,
+                   null,
+                   new BST(14,
+                       new BST(13),
+                       null)));
+function inOrderTraversal(node) {
+  if (node === null || node === undefined) {
+    return null;
+  }
+
+  var leftNode = new BST (inOrderTraversal(node.left));
+
+  var rightNode = inOrderTraversal(node.right);
+}
+
+inOrderTraversal(exampleBST);
